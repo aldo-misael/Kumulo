@@ -1,0 +1,388 @@
+/* Tipografía y colores base */
+body {
+  background: #f3f0f9;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+/* Contenedor principal en cuadrícula */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "ingresos resumen"
+    "gastos resumen"
+    "pasivos activos";
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Asignación de áreas */
+.grid-container > .card:nth-child(1) { grid-area: ingresos; }
+.grid-container > .card:nth-child(2) { grid-area: resumen; }
+.grid-container > .card:nth-child(3) { grid-area: gastos; }
+.grid-container > .card:nth-child(4) { grid-area: pasivos; }
+.grid-container > .card:nth-child(5) { grid-area: activos; }
+
+/* Tarjetas visuales */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(94, 75, 139, 0.15);
+  padding: 20px;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  /*transform: translateY(-3px);*/
+}
+
+h1, h2 {
+  color: #5e4b8b;
+  margin-top: 0;
+}
+
+h3 {
+  color: #7e6bbd;
+  margin-top: 20px;
+}
+
+/* Tablas */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd; /* Solo línea inferior */
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  border-top: 1px solid #ddd; /* Opcional: línea superior para encabezado */
+}
+
+td:first-child,
+th:first-child {
+  border-left: none;
+}
+
+td:last-child,
+th:last-child {
+  border-right: none;
+}
+
+.input-con-simbolo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.simbolo {
+  font-weight: bold;
+  color: #5e4b8b;
+}
+
+input[type="number"],
+input[type="text"] {
+  width: 90%;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Resumen */
+.resumen-card {
+  background: #f9f6ff;
+  border: 2px solid #d1c4e9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.resumen-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.resumen-grid > div {
+  flex: 1;
+  min-width: 160px;
+  background: #e8e0f1;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.mensaje-resumen {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #4a3f7a;
+  margin-bottom: 12px;
+  padding: 8px 0;
+}
+
+/* Barra de progreso */
+progress {
+  width: 100%;
+  height: 25px;
+  appearance: none;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #e0d7f3;
+  border-radius: 12px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #7e57c2;
+  border-radius: 12px;
+}
+
+#estadoCarrera {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #5e4b8b;
+}
+
+.progreso-wrapper {
+  margin-top: 20px;
+}
+
+.progreso-labels {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #5e4b8b;
+}
+
+.barra-contenedor {
+  background: #e0d7f3;
+  border-radius: 12px;
+  height: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+.barra-progreso {
+  background: #7e57c2;
+  height: 100%;
+  width: 0%;
+  transition: width 0.4s ease;
+  position: relative;
+}
+
+.barra-progreso::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 10px;
+  top: 2px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.resumen-cuenta {
+  margin-top: auto;
+  font-size: 17px;
+  font-weight: 500;
+  color: #5e4b8b;
+  padding-top: 20px;
+}
+
+.resumen-cuenta div {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.resumen-cuenta hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.resumen-cuenta div:first-child {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.payday-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #5e4b8b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.payday-button:hover {
+  background-color: #7e57c2;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 20, 50, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  max-width: 300px;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-actions button:first-child {
+  background-color: #5e4b8b;
+  color: white;
+}
+
+.modal-actions button:last-child {
+  background-color: #ccc;
+}
+
+.hidden {
+  display: none;
+}
+
+.card h2 {
+  position: relative;
+  margin-bottom: 16px;
+  padding-bottom: 6px;
+}
+
+.card h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1.7px; /* más delgada */
+  width: 100%;
+  background-color: #a18cd1; /* morado más suave */
+  opacity: 0.6; /* más sutil */
+  border-radius: 1px;
+}
+
+.menu-flotante {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.menu-flotante button {
+  background-color: #5e4b8b; /* morado elegante */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu-flotante button:hover {
+  background-color: #7a63b8; /* tono más claro al hover */
+}
+
+.resumen-imagen {
+  display: flex;
+  justify-content: center; /* centra horizontalmente */
+  margin-top: 1rem;
+}
+
+.resumen-imagen img {
+  max-width: 200px; /* ajusta tamaño según tu diseño */
+  height: auto;
+}
+
+.efectivo-label {
+  font-weight: bold;
+}
+
+.efectivo-right {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* espacio entre icono y valor */
+}
+
+#editEfectivo {
+  cursor: pointer;
+  color: #5e4b8b;
+  opacity: 0; /* oculto por defecto */
+  transition: opacity 0.3s;
+}
+
+.efectivo-container:hover #editEfectivo {
+  opacity: 1; /* aparece al pasar el mouse */
+}
+
+#resumenEfectivo[contenteditable="true"] {
+  border-bottom: 2px solid #6a0dad;
+  outline: none;
+  padding: 2px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #5e4b8b;
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.toast.show {
+  opacity: 1;
+}
