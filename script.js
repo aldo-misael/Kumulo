@@ -180,6 +180,7 @@ confirmar.addEventListener("click", async () => {
         calcularTotales();
         console.log("Datos guardados en Día de Pago ✅");
         mostrarToast("Datos guardados ✅");
+        setFechaActual(fechaHoy);
     } catch (e) {
         console.error("Error al guardar Día de Pago:", e);
         mostrarToast("Error al guardar Día de Pago:", e);
@@ -187,6 +188,17 @@ confirmar.addEventListener("click", async () => {
 
     modal.classList.add("hidden");
 });
+
+function setFechaActual(fechaHoy, elementId = "fechaActual") {
+    const fechaObj = new Date(fechaHoy);
+
+    document.getElementById(elementId).textContent =
+        fechaObj.toLocaleDateString('es-MX', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+}
 
 function activarRecalculoEnCampos(selector) {
     document.addEventListener("input", e => {
@@ -455,6 +467,7 @@ async function cargarMasReciente() {
 
             console.log("Cargando colección más reciente:", ultimaFecha);
             cargarDatosDesdeObjeto(datos);
+            setFechaActual(ultimaFecha);
         }
     } catch (e) {
         console.error("Error al cargar colección más reciente:", e);
