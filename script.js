@@ -463,11 +463,11 @@ async function cargarMasReciente() {
             const fechas = snapshot.docs.map(doc => doc.id);
             fechas.sort((a, b) => b.localeCompare(a)); // orden descendente
             const ultimaFecha = fechas[0];
+            setFechaActual(ultimaFecha);
             const datos = snapshot.docs.find(d => d.id === ultimaFecha).data();
 
             console.log("Cargando colección más reciente:", ultimaFecha);
             cargarDatosDesdeObjeto(datos);
-            setFechaActual(ultimaFecha);
         }
     } catch (e) {
         console.error("Error al cargar colección más reciente:", e);
