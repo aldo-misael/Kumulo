@@ -43,12 +43,15 @@
 
         <!-- Resumen -->
         <div class="card resumen-card">
-            <div class="header-fecha">
-                <span class="fecha-resumen" id="fechaActual"></span>
-                <div class="datepicker-wrapper">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <input type="date" id="inputFechaHidden">
-                </div>
+            <div class="fecha-resumen">
+                Fecha del último documento: <span id="ultimaFecha"></span>
+            </div>
+            <div class="fecha-nueva-container">
+                <button id="btnCalendario" class="btn">
+                    <i class="fa-solid fa-calendar"></i>
+                </button>
+                <input type="date" id="fechaNuevaInput">
+                <span id="fechaNuevaDisplay"></span>
             </div>
             <div class="mensaje-resumen">
                 Aumenta tus ingresos pasivos para escapar de la carrera de la rata.
