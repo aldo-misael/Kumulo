@@ -173,14 +173,14 @@ confirmar.addEventListener("click", async () => {
     }
 
     const datos = recolectarDatos(); // tu función que arma ingresos, gastos, activos, pasivos, resumen
-    const fechaHoy = new Date().toISOString().split("T")[0];
+    const fecha = obtenerFechaNuevaParaGuardar() || new Date().toISOString().split("T")[0];
 
     try {
-        await setDoc(doc(db, "EstadosFinancieros", fechaHoy), datos);
+        await setDoc(doc(db, "EstadosFinancieros", fecha), datos);
         calcularTotales();
         console.log("Datos guardados en Día de Pago ✅");
         mostrarToast("Datos guardados ✅");
-        setFechaActual(fechaHoy);
+        setFechaActual(fecha);
     } catch (e) {
         console.error("Error al guardar Día de Pago:", e);
         mostrarToast("Error al guardar Día de Pago:", e);
@@ -189,15 +189,9 @@ confirmar.addEventListener("click", async () => {
     modal.classList.add("hidden");
 });
 
-function setFechaActual(fechaHoy, elementId = "fechaActual") {
-    const fechaObj = new Date(fechaHoy);
-
-    document.getElementById(elementId).textContent =
-        fechaObj.toLocaleDateString('es-MX', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
+function obtenerFechaNuevaParaGuardar() {
+    const fechaISO = document.getElementById("fechaNuevaInput").value; // YYYY-MM-DD
+    return fechaISO;
 }
 
 function activarRecalculoEnCampos(selector) {
@@ -464,6 +458,7 @@ async function cargarMasReciente() {
             fechas.sort((a, b) => b.localeCompare(a)); // orden descendente
             const ultimaFecha = fechas[0];
             setFechaActual(ultimaFecha);
+            inicializarFechaNueva(ultimaFecha);
             const datos = snapshot.docs.find(d => d.id === ultimaFecha).data();
 
             console.log("Cargando colección más reciente:", ultimaFecha);
@@ -480,6 +475,36 @@ window.addEventListener("DOMContentLoaded", cargarMasReciente);
 document.getElementById("btnActualizar").addEventListener("click", async () => {
     cargarMasReciente();
 });
+
+function setFechaActual(fechaHoy, elementId = "ultimaFecha") {
+    document.getElementById(elementId).textContent = formatearFecha(fechaHoy);
+}
+
+function formatearFecha(fechaISO) {
+    const fechaObj = new Date(fechaISO);
+    return fechaObj.toLocaleDateString('es-MX', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+}
+
+// Inicialización de la fecha nueva
+function inicializarFechaNueva(fechaUltimoDoc) {
+    const input = document.getElementById("fechaNuevaInput");
+    const display = document.getElementById("fechaNuevaDisplay");
+
+    // Por defecto, fechaNueva = último día del mes del último documento
+    const fechaObj = new Date(fechaUltimoDoc);
+    const ultimoDiaMes = new Date(fechaObj.getFullYear(), fechaObj.getMonth() + 1, 0);
+    input.value = ultimoDiaMes.toISOString().split("T")[0]; // formato YYYY-MM-DD
+    display.textContent = formatearFecha(input.value);
+
+    // Actualizar display al cambiar la fecha
+    input.addEventListener("change", () => {
+        display.textContent = formatearFecha(input.value);
+    });
+}
 
 function mostrarToast(mensaje) {
     const toast = document.createElement("div");
