@@ -124,22 +124,26 @@ input[type="text"] {
   font-weight: 600;
 }
 
-/* Contenedor principal: flex */
 .fecha-resumen-container {
     display: flex;
-    justify-content: space-between; /* empuja los grupos a los extremos */
     align-items: center;
     padding: 8px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Cada grupo sigue siendo flex interno */
+/* Grupo izquierdo y derecho */
 .fecha-grupo {
     display: flex;
     align-items: center;
-    gap: 6px; /* espacio entre label y valor/input */
+    gap: 6px;
 }
 
-/* Etiquetas Doc.Actual y Doc.Nuevo */
+/* Grupo derecho empujado a la derecha */
+.fecha-grupo.derecha {
+    margin-left: auto; /* esto lo empuja completamente a la derecha */
+}
+
+/* Etiquetas */
 .fecha-label {
     font-size: 17px;
     font-weight: 500;
@@ -153,7 +157,7 @@ input[type="text"] {
     color: #5e4b8b;
 }
 
-/* Estilo del datepicker */
+/* datepicker moderno */
 #fechaNuevaInput {
     padding: 6px 12px;
     font-size: 16px;
