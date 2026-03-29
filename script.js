@@ -333,7 +333,7 @@ cancelar2.addEventListener("click", () => {
 
 confirmar2.addEventListener("click", async () => {
     const datos = recolectarDatos();
-    const fecha = obtenerFechaNuevaParaGuardar() || new Date().toISOString().split("T")[0];
+    const fecha = obtenerFechaDocActual() || new Date().toISOString().split("T")[0];
 
     try {
         await setDoc(doc(db, "EstadosFinancieros", fecha), datos);
@@ -345,6 +345,10 @@ confirmar2.addEventListener("click", async () => {
     }
     modal2.classList.add("hidden");
 });
+
+function obtenerFechaDocActual() {
+    return document.getElementById("ultimaFecha").dataset.fecha;
+}
 
 // Auxiliar: asegura que existan suficientes filas en una lista dinámica
 function asegurarFilas(listaId, cantidad) {
@@ -476,14 +480,15 @@ document.getElementById("btnActualizar").addEventListener("click", async () => {
 });
 
 function setFechaActual(fechaISO, elementId = "ultimaFecha") {
-    // Separar año, mes, día
+    const el = document.getElementById(elementId);
+
+    // Guardar la fecha real en el DOM
+    el.dataset.fecha = fechaISO;
+
     const [year, month, day] = fechaISO.split("-").map(Number);
+    const fechaObj = new Date(year, month - 1, day);
 
-    // Crear Date en hora local
-    const fechaObj = new Date(year, month - 1, day); // mes 0-index
-
-    // Mostrar en formato "8 de marzo de 2026"
-    document.getElementById(elementId).textContent = fechaObj.toLocaleDateString('es-MX', {
+    el.textContent = fechaObj.toLocaleDateString('es-MX', {
         day: 'numeric',
         month: 'long',
         year: 'numeric'
