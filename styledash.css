@@ -124,23 +124,22 @@ input[type="text"] {
   font-weight: 600;
 }
 
-/* Contenedor principal: flex con espacio entre grupos */
+/* Contenedor principal: flex */
 .fecha-resumen-container {
     display: flex;
-    justify-content: space-between; /* grupos extremos */
+    justify-content: space-between; /* empuja los grupos a los extremos */
     align-items: center;
     padding: 8px 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Cada grupo (label + valor/input) */
+/* Cada grupo sigue siendo flex interno */
 .fecha-grupo {
     display: flex;
     align-items: center;
-    gap: 6px; /* espacio entre label y valor */
+    gap: 6px; /* espacio entre label y valor/input */
 }
 
-/* Etiquetas Doc.Actual y Doc.Nuevo con mismo estilo que ultimaFecha */
+/* Etiquetas Doc.Actual y Doc.Nuevo */
 .fecha-label {
     font-size: 17px;
     font-weight: 500;
@@ -154,31 +153,13 @@ input[type="text"] {
     color: #5e4b8b;
 }
 
-/* Estilo moderno del datepicker */
+/* Estilo del datepicker */
 #fechaNuevaInput {
     padding: 6px 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    background-color: #fff;
-    color: #333;
     cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-#fechaNuevaInput:hover {
-    border-color: #5e4b8b;
-}
-
-#fechaNuevaInput:focus {
-    border-color: #5e4b8b;
-    box-shadow: 0 0 4px rgba(94, 75, 139, 0.4);
-    outline: none;
-}
-
-#fechaNuevaInput::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-    filter: invert(25%) sepia(60%) saturate(500%) hue-rotate(230deg);
 }
 
 .mensaje-resumen {
