@@ -124,16 +124,23 @@ input[type="text"] {
   font-weight: 600;
 }
 
-/* Contenedor flex para que ultimaFecha y datepicker estén alineados */
+/* Contenedor flex para que todo esté en línea */
 .fecha-resumen-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
+    gap: 12px; /* espacio entre cada elemento */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 8px 0;
 }
 
-/* estilo para ultimaFecha (igual que resumenIngresos) */
+/* Etiquetas cortas */
+.fecha-label {
+    font-weight: 500;
+    color: #5e4b8b;
+    font-size: 16px;
+}
+
+/* UltimaFecha con estilo igual que resumenIngresos */
 #ultimaFecha {
     font-size: 17px;
     font-weight: 500;
@@ -152,7 +159,6 @@ input[type="text"] {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Hover y focus para mejor UX */
 #fechaNuevaInput:hover {
     border-color: #5e4b8b;
 }
@@ -163,7 +169,7 @@ input[type="text"] {
     outline: none;
 }
 
-/* Para navegadores Webkit (Chrome, Edge, Safari) */
+/* Icono del calendario más visible en Chrome/Safari */
 #fechaNuevaInput::-webkit-calendar-picker-indicator {
     cursor: pointer;
     filter: invert(25%) sepia(60%) saturate(500%) hue-rotate(230deg);
