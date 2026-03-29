@@ -190,8 +190,7 @@ confirmar.addEventListener("click", async () => {
 });
 
 function obtenerFechaNuevaParaGuardar() {
-    const fechaISO = document.getElementById("fechaNuevaInput").value; // YYYY-MM-DD
-    return fechaISO;
+    return document.getElementById("fechaNuevaInput").value; // YYYY-MM-DD
 }
 
 function activarRecalculoEnCampos(selector) {
@@ -458,7 +457,7 @@ async function cargarMasReciente() {
             fechas.sort((a, b) => b.localeCompare(a)); // orden descendente
             const ultimaFecha = fechas[0];
             setFechaActual(ultimaFecha);
-            inicializarFechaNueva(ultimaFecha);
+            inicializarDatePicker(ultimaFecha);
             const datos = snapshot.docs.find(d => d.id === ultimaFecha).data();
 
             console.log("Cargando colección más reciente:", ultimaFecha);
@@ -490,20 +489,13 @@ function formatearFecha(fechaISO) {
 }
 
 // Inicialización de la fecha nueva
-function inicializarFechaNueva(fechaUltimoDoc) {
+function inicializarDatePicker(fechaUltimoDoc) {
     const input = document.getElementById("fechaNuevaInput");
-    const display = document.getElementById("fechaNuevaDisplay");
 
-    // Por defecto, fechaNueva = último día del mes del último documento
+    // Por defecto: último día del mes del último documento
     const fechaObj = new Date(fechaUltimoDoc);
     const ultimoDiaMes = new Date(fechaObj.getFullYear(), fechaObj.getMonth() + 1, 0);
-    input.value = ultimoDiaMes.toISOString().split("T")[0]; // formato YYYY-MM-DD
-    display.textContent = formatearFecha(input.value);
-
-    // Actualizar display al cambiar la fecha
-    input.addEventListener("change", () => {
-        display.textContent = formatearFecha(input.value);
-    });
+    input.value = ultimoDiaMes.toISOString().split("T")[0]; // YYYY-MM-DD
 }
 
 function mostrarToast(mensaje) {
