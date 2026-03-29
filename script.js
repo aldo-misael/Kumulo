@@ -333,10 +333,10 @@ cancelar2.addEventListener("click", () => {
 
 confirmar2.addEventListener("click", async () => {
     const datos = recolectarDatos();
-    const fechaHoy = new Date().toISOString().split("T")[0]; // ej: 2026-01-11
+    const fecha = obtenerFechaNuevaParaGuardar() || new Date().toISOString().split("T")[0];
 
     try {
-        await setDoc(doc(db, "EstadosFinancieros", fechaHoy), datos);
+        await setDoc(doc(db, "EstadosFinancieros", fecha), datos);
         console.log("Datos guardados correctamente ✅");
         mostrarToast("Datos guardados ✅");
     } catch (e) {
