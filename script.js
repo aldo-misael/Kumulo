@@ -475,13 +475,15 @@ document.getElementById("btnActualizar").addEventListener("click", async () => {
     cargarMasReciente();
 });
 
-function setFechaActual(fechaHoy, elementId = "ultimaFecha") {
-    document.getElementById(elementId).textContent = formatearFecha(fechaHoy);
-}
+function setFechaActual(fechaISO, elementId = "ultimaFecha") {
+    // Separar año, mes, día
+    const [year, month, day] = fechaISO.split("-").map(Number);
 
-function formatearFecha(fechaISO) {
-    const fechaObj = new Date(fechaISO);
-    return fechaObj.toLocaleDateString('es-MX', {
+    // Crear Date en hora local
+    const fechaObj = new Date(year, month - 1, day); // mes 0-index
+
+    // Mostrar en formato "8 de marzo de 2026"
+    document.getElementById(elementId).textContent = fechaObj.toLocaleDateString('es-MX', {
         day: 'numeric',
         month: 'long',
         year: 'numeric'
