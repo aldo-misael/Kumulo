@@ -457,7 +457,7 @@ async function cargarMasReciente() {
             fechas.sort((a, b) => b.localeCompare(a)); // orden descendente
             const ultimaFecha = fechas[0];
             setFechaActual(ultimaFecha);
-            inicializarDatePicker(ultimaFecha);
+            inicializarDatePicker();
             const datos = snapshot.docs.find(d => d.id === ultimaFecha).data();
 
             console.log("Cargando colección más reciente:", ultimaFecha);
@@ -491,13 +491,21 @@ function setFechaActual(fechaISO, elementId = "ultimaFecha") {
 }
 
 // Inicialización de la fecha nueva
-function inicializarDatePicker(fechaUltimoDoc) {
+function inicializarDatePicker() {
     const input = document.getElementById("fechaNuevaInput");
 
-    // Por defecto: último día del mes del último documento
-    const fechaObj = new Date(fechaUltimoDoc);
-    const ultimoDiaMes = new Date(fechaObj.getFullYear(), fechaObj.getMonth() + 1, 0);
-    input.value = ultimoDiaMes.toISOString().split("T")[0]; // YYYY-MM-DD
+    // Fecha actual
+    const hoy = new Date();
+
+    // Último día del mes actual
+    const ultimoDiaMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
+
+    // Formato YYYY-MM-DD sin problema de zona horaria
+    const year = ultimoDiaMes.getFullYear();
+    const month = String(ultimoDiaMes.getMonth() + 1).padStart(2, "0");
+    const day = String(ultimoDiaMes.getDate()).padStart(2, "0");
+
+    input.value = `${year}-${month}-${day}`;
 }
 
 function mostrarToast(mensaje) {
